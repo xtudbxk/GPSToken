@@ -1,0 +1,21 @@
+model:
+  decoderconfig:
+    double_z: False
+    z_channels: 32 # origin 256
+    resolution: 256
+    in_channels: 3
+    out_ch: 3
+    ch: 128
+    ch_mult: [1,2,4] # origin (1,1,2,2,4)
+    num_res_blocks: 2
+    attn_resolutions: []
+    dropout: 0.0
+  gpsconfig:
+    rois: 8
+    gpsenc_n: 30
+    gpsenc_c: 512
+    gps_c: 32
+    gps_num: 256
+    gps_dmax: 3
+    gps_adaptive_w: 2.5
+    gps_rs: [64, 64]
