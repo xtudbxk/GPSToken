@@ -5,7 +5,7 @@
 
 [Zhengqiang Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=UX26wSMAAAAJ)<sup>1,2</sup> | [Rongyuan Wu](https://scholar.google.com.hk/citations?hl=zh-CN&user=A-U8zE8AAAAJ)<sup>1,2</sup> | [Lingchen Sun](https://scholar.google.com/citations?hl=zh-CN&tzom=-480&user=ZCDjTn8AAAAJ)<sup>1,2</sup> | [Lei Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=tAK5l1IAAAAJ)<sup>1,2,+</sup>
 
-<sup>1</sup> The Hong Kong Polytechnic University  <sup>2</sup> The PolyU-OPPO Joint Innovation Lab <sup>+</sup> Corresponding Author
+<sup>1</sup> The Hong Kong Polytechnic University  <sup>2</sup> OPPO Research Institute <sup>+</sup> Corresponding Author
 
 ---
 
