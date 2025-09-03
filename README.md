@@ -1,11 +1,12 @@
-# GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization Image Representation and Generation
+# [GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization for Image Representation and Generation](https://arxiv.org/abs/2509.01109)
 
+<a href='https://arxiv.org/abs/2509.01109'><img src='https://img.shields.io/badge/arXiv-2509.01109-b31b1b.svg'></a>
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 [![Framework](https://img.shields.io/badge/framework-PyTorch-green)](https://pytorch.org)
 
 [Zhengqiang Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=UX26wSMAAAAJ)<sup>1,2</sup> | [Rongyuan Wu](https://scholar.google.com.hk/citations?hl=zh-CN&user=A-U8zE8AAAAJ)<sup>1,2</sup> | [Lingchen Sun](https://scholar.google.com/citations?hl=zh-CN&tzom=-480&user=ZCDjTn8AAAAJ)<sup>1,2</sup> | [Lei Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=tAK5l1IAAAAJ)<sup>1,2,+</sup>
 
-<sup>1</sup> The Hong Kong Polytechnic University  <sup>2</sup> The PolyU-OPPO Joint Innovation Lab <sup>+</sup> Corresponding Author
+<sup>1</sup> The Hong Kong Polytechnic University  <sup>2</sup> OPPO Research Institute <sup>+</sup> Corresponding Author
 
 ---
 
@@ -154,3 +155,24 @@ GPSToken can generalize to higher resolution, e.g., $512\times 512$ or $1024\tim
 ```
 python3 inference_gsptoken.py --model_path [model_path] --data_path [data_path] --config configs/gpstoken_l256.yaml --data_size 256 --output [xxx]
 ```
+
+
+## CITATION
+
+```
+@misc{zhang2025gpstokengaussianparameterizedspatiallyadaptive,
+      title={GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization for Image Representation and Generation}, 
+      author={Zhengqiang Zhang and Rongyuan Wu and Lingchen Sun and Lei Zhang},
+      year={2025},
+      eprint={2509.01109},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2509.01109}, 
+}
+```
+
+## CONTACT
+
+Please leave a issue or contact zhengqiang with [zhengqiang.zhang@connect.polyu.hk](mailto:zhengqiang.zhang@connect.polyu.hk)
+
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=xtudbxk.GPSToken)
