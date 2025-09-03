@@ -1,5 +1,6 @@
-# GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization Image Representation and Generation
+# [GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization Image Representation and Generation](https://arxiv.org/abs/2509.01109)
 
+<a href='https://arxiv.org/abs/2509.01109'><img src='https://img.shields.io/badge/arXiv-2509.01109-b31b1b.svg'></a>
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 [![Framework](https://img.shields.io/badge/framework-PyTorch-green)](https://pytorch.org)
 
@@ -154,3 +155,24 @@ GPSToken can generalize to higher resolution, e.g., $512\times 512$ or $1024\tim
 ```
 python3 inference_gsptoken.py --model_path [model_path] --data_path [data_path] --config configs/gpstoken_l256.yaml --data_size 256 --output [xxx]
 ```
+
+
+## CITATION
+
+```
+@misc{zhang2025gpstokengaussianparameterizedspatiallyadaptive,
+      title={GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization for Image Representation and Generation}, 
+      author={Zhengqiang Zhang and Rongyuan Wu and Lingchen Sun and Lei Zhang},
+      year={2025},
+      eprint={2509.01109},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2509.01109}, 
+}
+```
+
+## CONTACT
+
+Please leave a issue or contact zhengqiang with [zhengqiang.zhang@connect.polyu.hk](mailto:zhengqiang.zhang@connect.polyu.hk)
+
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=xtudbxk.GPSToken)
