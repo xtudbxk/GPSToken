@@ -1,4 +1,4 @@
-# [GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization Image Representation and Generation](https://arxiv.org/abs/2509.01109)
+# [GPSToken: Gaussian Parameterized Spatially-adaptive Tokenization for Image Representation and Generation](https://arxiv.org/abs/2509.01109)
 
 <a href='https://arxiv.org/abs/2509.01109'><img src='https://img.shields.io/badge/arXiv-2509.01109-b31b1b.svg'></a>
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
