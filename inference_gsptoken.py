@@ -75,9 +75,8 @@ def main():
     model.eval()
 
     state_dict = load_file(args.model_path)
-    state_dict = {k.replace("ema_model.", ""):v for k,v in state_dict.items() if k.startswith("ema_model.")}
     model_weight = {k: v for k, v in state_dict.items() if k in model.state_dict()}
-    model.load_state_dict(model_weight, strict=False)
+    model.load_state_dict(model_weight, strict=True)
     # --- ends ---
 
     # --- prepare ----
@@ -102,14 +101,14 @@ def main():
             # ---> fold higher resolution into 256x256 patch
             _np = args.data_size // 256
             _b, _c, _h, _w = img.shape
-            img = img.reshape(_b,_c,_np,256,_np,256).permute(0,2,4,1,3,5).reshape(_b*_np*_np,_c,256,256)
+            _img = img.reshape(_b,_c,_np,256,_np,256).permute(0,2,4,1,3,5).reshape(_b*_np*_np,_c,256,256)
             _, _gs, _gc = init_gpscodes.shape
             init_gpscodes = init_gpscodes.reshape(-1,_gs//(_np*_np), _gc)
             _, _, _rc = regions.shape
             regions = regions.reshape(-1,_gs//(_np*_np), _rc)
 
             # ---> encode
-            gpstokens = model_uw.encode(img, init_gpscodes=init_gpscodes, regions=regions) # [_b*_np*_np,gsn,gsc]
+            gpstokens = model_uw.encode(_img, init_gpscodes=init_gpscodes, regions=regions) # [_b*_np*_np,gsn,gsc]
 
             # ---> rendering & decode
             xrec = model_uw.decode(gpstokens)

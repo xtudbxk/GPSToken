@@ -1,5 +1,4 @@
 #include "gs.h"
-#include "gsc.h"
 #include <torch/extension.h>
 #include <c10/cuda/CUDAGuard.h>
 
@@ -73,72 +72,11 @@ void gs_render_backward(
 	    s, h, w, c, dmax);
 }
 
-void gs_contribution(
-        torch::Tensor &sigmas,
-        torch::Tensor &coords,
-        torch::Tensor &contribution,
-	const int s,
-	const int h,
-	const int w,
-	const float dmax
-        ){
-      
-        CHECK_INPUT(sigmas);
-        CHECK_INPUT(coords);
-        CHECK_INPUT(contribution);
-
-        // run the code at the cuda device same with the input
-        const at::cuda::OptionalCUDAGuard device_guard(device_of(sigmas));
-
-        _gs_contribution(
-            (const float *) sigmas.data_ptr(),
-            (const float *) coords.data_ptr(),
-            (float *) contribution.data_ptr(),
-	    s, h, w, dmax);
-}
-
-void gs_contribution_backward(
-        torch::Tensor &sigmas,
-        torch::Tensor &coords,
-        torch::Tensor &grads,
-        torch::Tensor &grads_sigmas,
-        torch::Tensor &grads_coords,
-	const int s,
-	const int h,
-	const int w,
-	const float dmax
-        ){
-
-        CHECK_INPUT(sigmas);
-        CHECK_INPUT(coords);
-        CHECK_INPUT(grads);
-        CHECK_INPUT(grads_sigmas);
-        CHECK_INPUT(grads_coords);
-
-
-        // run the code at the cuda device same with the input
-        const at::cuda::OptionalCUDAGuard device_guard(device_of(sigmas));
-
-        _gs_contribution_backward(
-            (const float *) sigmas.data_ptr(),
-            (const float *) coords.data_ptr(),
-            (const float *) grads.data_ptr(),
-            (float *) grads_sigmas.data_ptr(),
-            (float *) grads_coords.data_ptr(),
-	    s, h, w, dmax);
-}
-
 PYBIND11_MODULE( TORCH_EXTENSION_NAME, m) {
         m.def( "gs_render",
                 &gs_render,
                 "cuda forward wrapper");
         m.def( "gs_render_backward",
                 &gs_render_backward,
-                "cuda backward wrapper");
-        m.def( "gs_contribution",
-                &gs_contribution,
-                "cuda forward wrapper");
-        m.def( "gs_contribution_backward",
-                &gs_contribution_backward,
                 "cuda backward wrapper");
 }

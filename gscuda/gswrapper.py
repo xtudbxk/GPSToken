@@ -12,8 +12,7 @@ file_path = os.path.split(os.path.abspath(__file__))[0]
 GSWrapper = load(
         name="gscuda",
         sources=[os.path.join(file_path, "gswrapper.cpp"), 
-                 os.path.join(file_path, "gs.cu"),
-                 os.path.join(file_path, "gsc.cu")],
+                 os.path.join(file_path, "gs.cu"),],
         build_directory=build_path,
         verbose=True)
 

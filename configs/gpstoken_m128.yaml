@@ -1,7 +1,7 @@
 model:
   decoderconfig:
     double_z: False
-    z_channels: 32 # origin 256
+    z_channels: 16 # origin 256
     resolution: 256
     in_channels: 3
     out_ch: 3
