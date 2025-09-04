@@ -111,7 +111,14 @@ def main():
             gpstokens = model_uw.encode(_img, init_gpscodes=init_gpscodes, regions=regions) # [_b*_np*_np,gsn,gsc]
 
             # ---> rendering & decode
-            xrec = model_uw.decode(gpstokens, _np=_np)
+            if int(args._conf.model.gpsconfig.gps_num) == 256:
+                # gpstoken-L256 dose not need special processing for higher resolution due to high reconstruction performance
+                xrec = model_uw.decode(gpstokens, _np=1)
+                _b2, _c2, _h2, _w2 = xrec.shape
+                xrec = xrec.reshape(_b2//(_np**2),_np,_np,_c2,_h2,_w2)
+                xrec = xrec.permute(0,3,1,4,2,5)
+            else:
+                xrec = model_uw.decode(gpstokens, _np=_np)
             xrec = xrec.reshape(_b,-1,args.data_size,args.data_size)
 
             # save the image

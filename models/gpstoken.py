@@ -101,6 +101,7 @@ class GPSToken(nn.Module):
 
     def decode(self, gpstoken, _np=1):
         rendered = self.render_gpstoken(gpstoken, size=self.gpsconfig["gps_rs"], dmax=self.gpsconfig["gps_dmax"], _np=_np)
+        # rendered = self.render_gpstoken(gpstoken, size=self.gpsconfig["gps_rs"], dmax=self.gpsconfig["gps_dmax"], _np=1)
         dec = self.decoder(rendered, _np=_np)
         return dec
 
