@@ -18,7 +18,7 @@ class AttnBlock(torch.nn.Module):
             nn.Dropout(0.0),
         )
 
-    def forward(self, x, conds):
+    def forward(self, x, conds, mask=None):
         _b, _n, _c = x.shape
 
         # roi mlp
@@ -27,7 +27,9 @@ class AttnBlock(torch.nn.Module):
 
         # self-atten
         x_norm = self.ln1(x) # [b, n, c]
-        attn, _ = self.attn1(x_norm, x_norm, x_norm, need_weights=False)
+        if mask is not None and len(mask.shape) == 3:
+            mask = mask.repeat(8,1,1) # [B*heads, N, N]
+        attn, _ = self.attn1(x_norm, x_norm, x_norm, need_weights=False,attn_mask=mask)
         x = x + attn
 
         # mlp

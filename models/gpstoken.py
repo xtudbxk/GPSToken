@@ -3,7 +3,7 @@ import torch.nn as nn
 import torchvision
 
 from models.attnblock import AttnBlock
-from models.vqvae import ResnetBlock, Decoder
+from models.vqvae import ResnetBlock, Decoder, DecoderNP
 from gscuda.gswrapper import gaussiansplatting_render
 
 class GPSToken(nn.Module):
@@ -13,7 +13,7 @@ class GPSToken(nn.Module):
         self.decoderconfig = decoderconfig
         
         # decoder
-        self.decoder = Decoder(**decoderconfig)
+        self.decoder = DecoderNP(**decoderconfig)
 
         # the conditional encoder
         self.preprocess_img = nn.Sequential(
@@ -43,7 +43,10 @@ class GPSToken(nn.Module):
         self.to_gps[0].weight.data.fill_(0.0)
         self.to_gps[0].bias.data.fill_(0.0)
 
-    def render_gpstoken(self, gpstoken, size=(64,64), dmax=10):
+    def render_gpstoken(self, gpstoken, size=(64,64), dmax=10, _np=1):
+        size = (size[0]*_np, size[1]*_np)
+        gpstoken = self.adjust_gpstoken(gpstoken, _np)
+
         rendered_result = []
         for bi in range(gpstoken.shape[0]):
             sigmas = gpstoken[bi, :, :3]
@@ -52,7 +55,7 @@ class GPSToken(nn.Module):
             rendered_result.append(gaussiansplatting_render(sigmas, coords, colors, size, dmax).permute(2, 0, 1))
         return torch.stack(rendered_result)
 
-    def encode(self, x, init_gpscodes=None, regions=None):
+    def encode(self, x, init_gpscodes=None, regions=None, _np=1):
 
         # condition
         x_preprocess = self.preprocess_img(x) 
@@ -96,12 +99,46 @@ class GPSToken(nn.Module):
 
         return gpscodes
 
-    def decode(self, gpstoken):
-        rendered = self.render_gpstoken(gpstoken, size=self.gpsconfig["gps_rs"], dmax=self.gpsconfig["gps_dmax"])
-        dec = self.decoder(rendered)
+    def decode(self, gpstoken, _np=1):
+        rendered = self.render_gpstoken(gpstoken, size=self.gpsconfig["gps_rs"], dmax=self.gpsconfig["gps_dmax"], _np=_np)
+        dec = self.decoder(rendered, _np=_np)
         return dec
 
-    def forward(self, x, init_gpscodes=None, regions=None):
-        gpstoken = self.encode(x, init_gpscodes=init_gpscodes, regions=regions)
-        recon = self.decode(gpstoken)
+    def forward(self, x, init_gpscodes=None, regions=None, _np=1):
+        gpstoken = self.encode(x, init_gpscodes=init_gpscodes, regions=regions, _np=1)
+        recon = self.decode(gpstoken, _np=_np)
         return recon
+
+    def adjust_gpstoken(self, gps, _np):
+        # merge _npxnp gpstokens to gpstokens of a whole image
+        b_np_np, n, _ = gps.shape
+        adjusted_gps = gps.clone()
+        
+        # 计算每个样本所属的网格坐标(i,j)
+        # 创建0到np×np-1的索引，然后每个重复b次
+        block_indices = torch.arange(_np * _np, device=gps.device).repeat_interleave(b_np_np//(_np**2))
+        # 计算i和j坐标 (i是行索引，j是列索引)
+        i = block_indices // _np  # 行坐标
+        j = block_indices % _np   # 列坐标
+        
+        # 扩展维度以便广播操作
+        i = i.unsqueeze(1)  # 形状变为 [b*np*np, 1]
+        j = j.unsqueeze(1)  # 形状变为 [b*np*np, 1]
+        
+        # 调整参数
+        # 1. 缩放sigma_x和sigma_y
+        adjusted_gps[..., 0] = gps[..., 0] / _np  # sigma_x
+        adjusted_gps[..., 1] = gps[..., 1] / _np  # sigma_y
+        
+        # 2. rho保持不变
+        adjusted_gps[..., 2] = gps[..., 2]       # rho
+        
+        # 3. 平移x坐标到目标方块
+        # 公式: x' = -1 + (2j + x + 1)/_np
+        adjusted_gps[..., 3] = -1 + (2 * j + gps[..., 3] + 1) / _np  # x
+        
+        # 4. 平移y坐标到目标方块
+        # 公式: y' = -1 + (2i + y + 1)/_np
+        adjusted_gps[..., 4] = -1 + (2 * i + gps[..., 4] + 1) / _np  # y
+        
+        return adjusted_gps.reshape(b_np_np//(_np**2),_np**2*n,-1)

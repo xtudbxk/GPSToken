@@ -111,9 +111,7 @@ def main():
             gpstokens = model_uw.encode(_img, init_gpscodes=init_gpscodes, regions=regions) # [_b*_np*_np,gsn,gsc]
 
             # ---> rendering & decode
-            xrec = model_uw.decode(gpstokens)
-            xrec = xrec.reshape(_b,_np,_np,-1,256,256)
-            xrec = xrec.permute(0,3,1,4,2,5)
+            xrec = model_uw.decode(gpstokens, _np=_np)
             xrec = xrec.reshape(_b,-1,args.data_size,args.data_size)
 
             # save the image
