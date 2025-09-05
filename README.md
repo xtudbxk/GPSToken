@@ -10,6 +10,10 @@
 
 ---
 
+### :star: Update
+- **2025.09.05**: Update code for higher resolution, including GPS-tokens merging (see [here](https://github.com/xtudbxk/GPSToken/blob/main/models/gpstoken.py#L113)) for reducing boundary artifacts and resized GroupNorm layer (see [here](https://github.com/xtudbxk/GPSToken/blob/main/models/vqvae.py#L310)) for easing color shifts.
+---
+
 ## 🎯 Motivation: Beyond Fixed Grids
 Effective and efficient tokenization is crucial for image representation and generation. Conventional uniform 2D/1D grid tokenization lacks flexibility in handling regions with varying shapes, textures, and locations.
 We propose **GPSToken**, a **G**aussian **P**arameterized **S**patially-adaptive **Token**ization framework, enabling non-uniform tokenization via parametric 2D Gaussians. Our method:
