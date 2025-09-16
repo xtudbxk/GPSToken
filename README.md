@@ -11,6 +11,7 @@
 ---
 
 ### :star: Update
+- **2025.09.16**: Update models to [HuggingFace](https://huggingface.co/xtudbxk/GPSToken).
 - **2025.09.05**: Update code for higher resolution, including GPS-tokens merging (see [here](https://github.com/xtudbxk/GPSToken/blob/main/models/gpstoken.py#L113)) for reducing boundary artifacts and resized GroupNorm layer (see [here](https://github.com/xtudbxk/GPSToken/blob/main/models/vqvae.py#L310)) for easing color shifts.
 ---
 
@@ -154,6 +155,8 @@ GPSToken can generalize to higher resolution, e.g., $512\times 512$ or $1024\tim
 |GPSToken-S64|64|[baidupan](https://pan.baidu.com/s/1VNc6fMXfMyinXoJR5HQM1w?pwd=82ks)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/EQd2fW0gwaJHjomCUyqISUYBcpLXOcsZ0uIMBYilSy8Wjg?e=4XDGCy)|
 |GPSToken-M128|128|[baidupan](https://pan.baidu.com/s/1JoNXRU1tbHKTAocZaIPjQA?pwd=3qqt)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/EYPQ74QZiiVEuKoVlfImoOoBbyLeb-j-M50K2__S5bOXnw?e=fi1oaQ)|
 |GPSToken-L256|256|[baidupan](https://pan.baidu.com/s/1iJA_YnOFS6YDgzksbPlFFg?pwd=gfuz)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/Eeu0IQCtQ8JKmKI7pqBTsB0BGpvEZZT2QftHyCowWeyasg?e=7Zlyye)|
+
+One can also download the models in [HuggingFace](https://huggingface.co/xtudbxk/GPSToken).
 
 #### Inference scripts
 ```
