@@ -3,6 +3,7 @@
 <a href='https://arxiv.org/abs/2509.01109'><img src='https://img.shields.io/badge/arXiv-2509.01109-b31b1b.svg'></a>
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 [![Framework](https://img.shields.io/badge/framework-PyTorch-green)](https://pytorch.org)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-Model-orange)](https://huggingface.co/xtudbxk/GPSToken/tree/main)
 
 [Zhengqiang Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=UX26wSMAAAAJ)<sup>1,2</sup> | [Rongyuan Wu](https://scholar.google.com.hk/citations?hl=zh-CN&user=A-U8zE8AAAAJ)<sup>1,2</sup> | [Lingchen Sun](https://scholar.google.com/citations?hl=zh-CN&tzom=-480&user=ZCDjTn8AAAAJ)<sup>1,2</sup> | [Lei Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=tAK5l1IAAAAJ)<sup>1,2,+</sup>
 
