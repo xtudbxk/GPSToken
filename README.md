@@ -4,6 +4,8 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 [![Framework](https://img.shields.io/badge/framework-PyTorch-green)](https://pytorch.org)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-Model-orange)](https://huggingface.co/xtudbxk/GPSToken/tree/main)
+[![paper](https://img.shields.io/badge/NIPS'25-GPSToken-b31b1b.svg)](https://openreview.net/forum?id=BxoEDR2yQM)
+
 
 [Zhengqiang Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=UX26wSMAAAAJ)<sup>1,2</sup> | [Rongyuan Wu](https://scholar.google.com.hk/citations?hl=zh-CN&user=A-U8zE8AAAAJ)<sup>1,2</sup> | [Lingchen Sun](https://scholar.google.com/citations?hl=zh-CN&tzom=-480&user=ZCDjTn8AAAAJ)<sup>1,2</sup> | [Lei Zhang](https://scholar.google.com.hk/citations?hl=zh-CN&user=tAK5l1IAAAAJ)<sup>1,2,+</sup>
 
@@ -12,6 +14,7 @@
 ---
 
 ### :star: Update
+- **2025.09.19**: GPSToken has been accepted by [NIPS 2025](https://openreview.net/forum?id=BxoEDR2yQM)! 🎉🎉🎉
 - **2025.09.16**: Update models to [HuggingFace](https://huggingface.co/xtudbxk/GPSToken).
 - **2025.09.05**: Update code for higher resolution, including GPS-tokens merging (see [here](https://github.com/xtudbxk/GPSToken/blob/main/models/gpstoken.py#L113)) for reducing boundary artifacts and resized GroupNorm layer (see [here](https://github.com/xtudbxk/GPSToken/blob/main/models/vqvae.py#L310)) for easing color shifts.
 ---
