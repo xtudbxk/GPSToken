@@ -14,7 +14,7 @@
 ---
 
 ### :star: Update
-- **2025.09.28**: We release the train scripts for GPSToken (see [here](https://github.com/xtudbxk/GPSToken/blob/main/README.md#172)).
+- **2025.09.28**: We release the train scripts for GPSToken (see [here](#train-scripts)).
 - **2025.09.26**: We upload the poster and slides for [NIPS 2025](https://neurips.cc/virtual/2025/poster/119331).
 - **2025.09.19**: GPSToken has been accepted by [NIPS 2025](https://neurips.cc/virtual/2025/poster/119331)! 🎉🎉🎉
 - **2025.09.16**: Update models to [HuggingFace](https://huggingface.co/xtudbxk/GPSToken).
