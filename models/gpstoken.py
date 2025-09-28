@@ -143,3 +143,6 @@ class GPSToken(nn.Module):
         adjusted_gps[..., 4] = -1 + (2 * i + gps[..., 4] + 1) / _np  # y
         
         return adjusted_gps.reshape(b_np_np//(_np**2),_np**2*n,-1)
+
+    def get_last_layer_weight(self):
+        return self.decoder.conv_out.weight
