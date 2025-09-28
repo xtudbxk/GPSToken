@@ -14,6 +14,7 @@
 ---
 
 ### :star: Update
+- **2025.09.28**: We release the train scripts for GPSToken (see [here](https://github.com/xtudbxk/GPSToken/blob/main/README.md#172)).
 - **2025.09.26**: We upload the poster and slides for [NIPS 2025](https://neurips.cc/virtual/2025/poster/119331).
 - **2025.09.19**: GPSToken has been accepted by [NIPS 2025](https://neurips.cc/virtual/2025/poster/119331)! 🎉🎉🎉
 - **2025.09.16**: Update models to [HuggingFace](https://huggingface.co/xtudbxk/GPSToken).
@@ -168,6 +169,13 @@ One can also download the models in [HuggingFace](https://huggingface.co/xtudbxk
 python3 inference_gsptoken.py --model_path [model_path] --data_path [data_path] --config configs/gpstoken_l256.yaml --data_size 256 --output [xxx]
 ```
 
+#### Train scripts
+- Install requirements by `pip3 -r requirements.txt`
+- Download models for [perceputal](https://huggingface.co/zgcr654321/pretrained_models/blob/main/inception_v3_pytorch_weights/pt_inception-2015-12-05-6726825d.pth) and [lpips](https://huggingface.co/Raid41/ajoo/blob/1b58508e40d6f99b8f98f9ea5bdca5fb678822eb/model/vgg16-397923af.pth) loss. Then, put them at `$HOME/.cache/torch/hub/checkpoints`
+- Train the model via: 
+```
+python3 train.py --project [name_of_project] --config configs/gpstoken_l256.yaml
+```
 
 ## CITATION
 
