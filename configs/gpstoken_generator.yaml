@@ -1,0 +1,58 @@
+pretrained_gpstoken_means: [-0.0211, -0.0196, 0.0107, -0.0052, -0.0044, 1.8017, 2.4036, 2.0145, 1.2402, -4.2579, -1.2646, -3.0395, 2.2928, 3.2168, -0.1431, 0.1600, 1.3924, 3.2345, 1.6994, 0.8237, 0.3222]
+pretrained_gpstoken_stds: [0.0121, 0.0108, 0.2533, 0.0119, 0.0114, 2.7334, 2.6400, 2.7963, 2.9325, 2.8337, 2.8269, 3.1082, 3.1412, 2.8038, 2.6501, 2.6163, 2.4718, 2.6958, 2.8157, 2.4744, 2.8200]
+
+transport:
+  path_type: "Linear"
+  prediction: "velocity"
+  loss_weight: null
+
+model:
+  name: SiT-XL/2-gs
+  latent_size: 128
+  num_classes: 1000
+  in_channels: 21
+
+gpstoken:
+  decoderconfig:
+    double_z: False
+    z_channels: 16 # origin 256
+    resolution: 256
+    in_channels: 3
+    out_ch: 3
+    ch: 128
+    ch_mult: [1,2,4] # origin (1,1,2,2,4)
+    num_res_blocks: 2
+    attn_resolutions: []
+    dropout: 0.0
+  gpsconfig:
+    rois: 8
+    gpsenc_n: 30
+    gpsenc_c: 512
+    gps_c: 16
+    gps_num: 128
+    gps_dmax: 3
+    gps_adaptive_w: 2.5
+    gps_rs: [64, 64]
+
+
+data:
+  target: AdaptiveGSImagenetLMDB
+  num_workers: 8
+  size: 256
+  path: /home/notebook/data/group/zzq/imagenet/ILSVRC2012/train.zzq
+  cache_path: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0808-0106-0103-0301/caches/datalmdb.dill
+  # cache_path: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0808-0106-0103-0301/caches/tmp.dill
+  params:
+    size: 256
+    txtpath: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0810-01/datasets/data/imagenet_train.aliyun.zzq.txt
+    lmdbpath: /home/notebook/data/group/zzq/imagenet/ILSVRC2012/train.lmdb
+    shm_n: 40
+    # txtpath: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0808-0106-0103-0301/datasets/data/imagenet_val.100.aliyun.txt
+    # lmdbpath: /home/notebook/data/group/zzq/imagenet/ILSVRC2012/val.100.lmdb
+    # shm_n: 0
+
+valdata:
+  target: AdaptiveGSImageFolder
+  num_workers: 8
+  size: 256
+  path: /home/notebook/data/group/zzq/imagenet/val_1k
