@@ -162,7 +162,7 @@ GPSToken can generalize to higher resolution, e.g., $512\times 512$ or $1024\tim
 |GPSToken-S64|64|[baidupan](https://pan.baidu.com/s/1VNc6fMXfMyinXoJR5HQM1w?pwd=82ks)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/EQd2fW0gwaJHjomCUyqISUYBcpLXOcsZ0uIMBYilSy8Wjg?e=4XDGCy)|
 |GPSToken-M128|128|[baidupan](https://pan.baidu.com/s/1JoNXRU1tbHKTAocZaIPjQA?pwd=3qqt)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/EYPQ74QZiiVEuKoVlfImoOoBbyLeb-j-M50K2__S5bOXnw?e=fi1oaQ)|
 |GPSToken-L256|256|[baidupan](https://pan.baidu.com/s/1iJA_YnOFS6YDgzksbPlFFg?pwd=gfuz)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/Eeu0IQCtQ8JKmKI7pqBTsB0BGpvEZZT2QftHyCowWeyasg?e=7Zlyye)|
-|SiT generator (ImageNet 256, paired with GPSToken-M128)|128|—|
+|SiT generator (ImageNet 256, paired with GPSToken-M128)|128|[generator](https://1drv.ms/u/c/486948495d12bbd0/IQC8iXLQeY96TqzoyeEWxKoKAfuuXkrkQlMyMl8q7vRwgE4?e=tW301c)/[initg.pickle](https://1drv.ms/u/c/486948495d12bbd0/IQB3ZKkd96Z6Q7mLvt3jwJsyAUXmrGNmqxDD_I5ytj9do90?e=ftpz6E)|
 
 One can also download the models in [HuggingFace](https://huggingface.co/xtudbxk/GPSToken).
 
