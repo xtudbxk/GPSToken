@@ -14,6 +14,7 @@
 ---
 
 ### :star: Update
+- **2026.04.02**: We release generator inference scripts for class-conditional ImageNet sampling (see [Generator inference](#generator-inference)).
 - **2025.09.28**: We release the train scripts for GPSToken (see [here](#train-scripts)).
 - **2025.09.26**: We upload the poster and slides for [NIPS 2025](https://neurips.cc/virtual/2025/poster/119331).
 - **2025.09.19**: GPSToken has been accepted by [NIPS 2025](https://neurips.cc/virtual/2025/poster/119331)! 🎉🎉🎉
@@ -161,6 +162,7 @@ GPSToken can generalize to higher resolution, e.g., $512\times 512$ or $1024\tim
 |GPSToken-S64|64|[baidupan](https://pan.baidu.com/s/1VNc6fMXfMyinXoJR5HQM1w?pwd=82ks)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/EQd2fW0gwaJHjomCUyqISUYBcpLXOcsZ0uIMBYilSy8Wjg?e=4XDGCy)|
 |GPSToken-M128|128|[baidupan](https://pan.baidu.com/s/1JoNXRU1tbHKTAocZaIPjQA?pwd=3qqt)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/EYPQ74QZiiVEuKoVlfImoOoBbyLeb-j-M50K2__S5bOXnw?e=fi1oaQ)|
 |GPSToken-L256|256|[baidupan](https://pan.baidu.com/s/1iJA_YnOFS6YDgzksbPlFFg?pwd=gfuz)/[onedrive](https://connectpolyu-my.sharepoint.com/:u:/g/personal/22040257r_connect_polyu_hk/Eeu0IQCtQ8JKmKI7pqBTsB0BGpvEZZT2QftHyCowWeyasg?e=7Zlyye)|
+|SiT generator (ImageNet 256, paired with GPSToken-M128)|128|—|
 
 One can also download the models in [HuggingFace](https://huggingface.co/xtudbxk/GPSToken).
 
@@ -168,6 +170,26 @@ One can also download the models in [HuggingFace](https://huggingface.co/xtudbxk
 ```
 python3 inference_gsptoken.py --model_path [model_path] --data_path [data_path] --config configs/gpstoken_l256.yaml --data_size 256 --output [xxx]
 ```
+
+#### Generator inference
+Class-conditional image generation uses a SiT backbone on the GPS-token latent, the pretrained GPSToken decoder (e.g. M128), and per-class initial Gaussian statistics in `initg.pickle`. Place checkpoints under `weights/` (or pass absolute paths), then run:
+```
+bash scripts/generate.sh
+```
+which wraps `accelerate launch` on `inference_generator.py` with `configs/gpstoken_generator.yaml`. Main flags (override as needed):
+```
+python3 -m accelerate.commands.launch inference_generator.py \
+  --config configs/gpstoken_generator.yaml \
+  --model_path weights/generator.safetensors \
+  --gpstoken_path weights/gpstoken_m128.safetensors \
+  --initg_path weights/initg.pickle \
+  --output [output_dir] \
+  --data_count [images_per_class] --class_count 1000 \
+  --cfg_scale [float] --guidance_low [0-1000] --guidance_high 1000 \
+  --max_count [total_images_or_-1_for_all] \
+  --batch_size 8 --steps 250 --gpus 0
+```
+Use `--ode` for ODE sampling (default is SDE). Outputs are PNGs named by global index under `--output`. Use a **GPSToken-M128** checkpoint from the table above for `--gpstoken_path`. Dedicated download links for the SiT generator weights and `initg.pickle` are in the extra [Model Zoo](#model-zoo) row (to be released).
 
 #### Train scripts
 - Install requirements by `pip3 -r requirements.txt`

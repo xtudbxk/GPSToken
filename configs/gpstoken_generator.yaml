@@ -33,26 +33,3 @@ gpstoken:
     gps_dmax: 3
     gps_adaptive_w: 2.5
     gps_rs: [64, 64]
-
-
-data:
-  target: AdaptiveGSImagenetLMDB
-  num_workers: 8
-  size: 256
-  path: /home/notebook/data/group/zzq/imagenet/ILSVRC2012/train.zzq
-  cache_path: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0808-0106-0103-0301/caches/datalmdb.dill
-  # cache_path: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0808-0106-0103-0301/caches/tmp.dill
-  params:
-    size: 256
-    txtpath: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0810-01/datasets/data/imagenet_train.aliyun.zzq.txt
-    lmdbpath: /home/notebook/data/group/zzq/imagenet/ILSVRC2012/train.lmdb
-    shm_n: 40
-    # txtpath: /home/notebook/data/group/zzq/projects/GSVAE_20240712-0808-0106-0103-0301/datasets/data/imagenet_val.100.aliyun.txt
-    # lmdbpath: /home/notebook/data/group/zzq/imagenet/ILSVRC2012/val.100.lmdb
-    # shm_n: 0
-
-valdata:
-  target: AdaptiveGSImageFolder
-  num_workers: 8
-  size: 256
-  path: /home/notebook/data/group/zzq/imagenet/val_1k

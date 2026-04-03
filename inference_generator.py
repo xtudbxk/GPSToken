@@ -1,17 +1,11 @@
 import os
 import cv2
-import sys
-import yaml
-import json
-import torch 
+import torch
 import random
 import pickle
 import argparse
 from omegaconf import OmegaConf
 import numpy as np
-import albumentations
-from loguru import logger
-from torchvision.utils import save_image
 from tqdm import tqdm
 
 from accelerate.utils import set_seed
@@ -31,15 +25,16 @@ def parse_args():
     parser.add_argument("--gpstoken_path", type=str)
     parser.add_argument("--initg_path", type=str)
     parser.add_argument("--max_count", type=int, default=-1)
-    parser.add_argument("--data_count", type=int, default=1)
+    parser.add_argument("--data_count", type=int, default=50)
     parser.add_argument("--class_count", type=int, default=1000)
-    parser.add_argument("--data_size", type=int, default=256)
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--seed", type=int, default=23)
     parser.add_argument("--output", type=str, default="results/generator/")
     parser.add_argument("--gpus", type=str, default="0")
     parser.add_argument("--steps", type=int, default=250)
     parser.add_argument("--cfg_scale", type=float, default=1.0)
+    parser.add_argument("--guidance_low", type=int, default=0)
+    parser.add_argument("--guidance_high", type=int, default=1000)
     parser.add_argument("--ode", action="store_true")
     # --- ends ---
 
@@ -62,6 +57,7 @@ def main():
     # --- accelerator ---
     kwargs = DistributedDataParallelKwargs(find_unused_parameters=True)
     accelerator = Accelerator(kwargs_handlers=[kwargs])
+    set_seed(args.seed)
     # --- ends ---
 
     # --- create diffusion ---
@@ -128,7 +124,7 @@ def main():
             g_init = torch.cat(g_init+g_init, dim=0)
 
             # --->
-            model_kwargs = dict(y=y, cond=g_init, cfg_scale=args.cfg_scale)
+            model_kwargs = dict(y=y, cond=g_init, cfg_scale=args.cfg_scale, guidance_high=args.guidance_high, guidance_low=args.guidance_low)
 
             # ---> sample
             samples = sampler_fn(zs, model_uw.forward_with_cfg, **model_kwargs)[-1]
@@ -175,12 +171,5 @@ def main():
     print(f"saving all the samples in {args.output}")
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        if Accelerator().is_main_process:
-            import traceback; traceback.print_exc()
-            print(e)
-            import pdb; pdb.post_mortem()
-
+    main()
 

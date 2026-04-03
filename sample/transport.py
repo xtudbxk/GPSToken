@@ -93,6 +93,10 @@ class Transport:
 
             t0 = eps if (diffusion_form == "SBDM" and sde) or self.model_type != ModelType.VELOCITY else 0
             t1 = 1 - eps if (not sde or last_step_size == 0) else 1 - last_step_size
+            # ICPlan/GVPCPlan: SBDM diffusion ~ alpha_ratio blows up as t->0 (1/t or cot(pi t/2)).
+            # Floor t0 for SDE only; ODE (sde=False) keeps t0=0 and only integrates v(x,t).
+            if sde and diffusion_form == "SBDM" and type(self.path_sampler) in [path.ICPlan, path.GVPCPlan]:
+                t0 = max(float(t0), 1e-3)
         
         if reverse:
             t0, t1 = 1 - t0, 1 - t1
